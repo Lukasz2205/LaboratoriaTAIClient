@@ -28,6 +28,4 @@ async function renderBooks() {
   container.innerHTML = html;
 }
 
-let book = new Book('xd', 'xd', 'xd', 'xd','xd');
-
 renderBooks();

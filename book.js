@@ -17,9 +17,9 @@ export class Book {
 
   renderCard() {
    return `<div class="user">
-        <div>${this.getName()}</div>
+        <h1>${this.getName()}</h1>
         <h2>${this.getDescription()} ${this.author}</h2>
-        <div">Strony : ${this.pages} Cena: ${this.price}</div>
+        <div">Strony : ${this.pages} Cena: ${this.price}zł</div>
     </div>`
   }
 }
