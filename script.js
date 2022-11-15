@@ -1,4 +1,6 @@
 import { Book } from "./book.js";
+import { User } from './user.js'
+let roles = JSON.parse(localStorage.getItem('userRole')).map(x => x.name)
 
 async function getBooks() {
   return fetch('http://127.0.0.1:3000/api/books_api', {
@@ -38,4 +40,6 @@ async function renderBooks() {
   container.innerHTML = html;
 }
 
-renderBooks();
+if (user) { 
+  renderBooks();
+}
