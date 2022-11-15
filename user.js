@@ -1,7 +1,7 @@
 export class User {
-  constructor(name, role, token) {
+  constructor(name, roles, token) {
     this.name = name,
-    this.role = role,
+    this.roles = roles,
     this.token = token
   }
 
@@ -9,7 +9,8 @@ export class User {
     return this.name;
   }
 
-  getRole() {
-    return this.role;
+  getRoles() {
+    return this.roles
   }
+
 }

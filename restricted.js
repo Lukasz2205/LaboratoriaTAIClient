@@ -1,26 +1,47 @@
-import { verifyUserData } from './verify.js'
 import { User } from './user.js'
 
+let roles = JSON.parse(localStorage.getItem('userRole')).map(x => x.name)
 let data = document.querySelector('.data');
+let aButton = document.querySelector('.a-role-button');
+let bButton = document.querySelector('.b-role-button');
+let user = new User(JSON.parse(localStorage.getItem('user')).login,
+                    roles,
+                    localStorage.getItem('token'));
 
-console.log(data)
-
-if (!verifyUserData()) { 
+if (!user) { 
   window.location.replace('/authorization.html');
 } else {
-  let user = new User(JSON.parse(localStorage.getItem('user')).login,
-                    JSON.parse(localStorage.getItem('userRole'))[0]['name'],
-                    localStorage.getItem('token'));
   createAdminData(user);
-  console.log(user.getRole())
 }
 
+aButton.addEventListener('click', function() {
+  if (user.getRoles().includes('Administrator')) {
+    alert('Rola A - OK');
+  } else {
+    alert('Brak uprawnien');
+  }
+});
+
+bButton.addEventListener('click', function() {
+  if (user.getRoles().includes('User')) {
+    alert('Rola B - OK');
+  } else {
+    alert('Brak uprawnien');
+  }
+});
+
 function createAdminData(user) {
-  if (user.getRole() === 'Administrator') {
-    data.innerHTML = 'Dane dla uzytkownika z rola A';
-  } else if (user.getRole() === 'User') {
+  if (user.getRoles()[1] === undefined) {
+    if (user.getRoles()[0] === 'Administrator') {
+      data.innerHTML = 'Nie widoczne dla tej roli';
+    } else if (user.getRoles()[0] === 'User') {
+      data.innerHTML = 'Dane dla uzytkownika z rola B';
+    } else {
+      data.innerHTML = 'Nie widoczne dla tej roli';
+    }
+  } else if (user.getRoles()[0] === 'User' || user.getRoles()[1] === 'User' ) {
     data.innerHTML = 'Dane dla uzytkownika z rola B';
   } else {
-    data.innerHTML = 'Dane dla uzytkownika bez roli';
+    data.innerHTML = 'Nie widoczne dla tej roli';
   }
 }
