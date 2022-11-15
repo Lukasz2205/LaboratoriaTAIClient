@@ -1,30 +1,45 @@
 import { Book } from "./book.js";
 
 async function getBooks() {
-  let url = 'https://glacial-cliffs-17238.herokuapp.com/api/books_api';
-  try {
-    let res = await fetch(url);
-    return await res.json();
-  } catch (error) {
-    console.log(error);
-  }
+  return fetch('http://127.0.0.1:3000/api/books_api', {
+    method: "get",
+    headers: {
+      Authorization: window.localStorage.getItem('token'),
+    }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
 }
 
 async function renderBooks() {
+  let container = document.querySelector('.content');
   let books = await getBooks();
   let html = '';
-  let booksArray = [];
+  let bks;
+  if (!books.errors) {
+      bks = books['books'].map(book => {
+      return new Book(book.name, 
+              book.description,
+              book.author,
+              book.price,
+              book.pages);
+    })
+  } else {
+    localStorage.removeItem('user');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('token');
+    window.location.replace('/authorization.html');
+  }
   
-  books['books'].forEach(book => {
-    booksArray.push(new Book(book.name, book.description, book.author, book.price, book.pages));
-  })
-
-  booksArray.forEach(book => {
-    console.log(book.renderCard())
+  bks.forEach(book => {
     html += book.renderCard();
   })
 
-  let container = document.querySelector('.container');
   container.innerHTML = html;
 }
 
