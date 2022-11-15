@@ -11,13 +11,19 @@ if (!user) {
   window.location.replace('/authorization.html');
 } else {
   displayUserName(user);
+  logoutButton.innerHTML = 'Wyloguj';
 }
-console.log(logoutButton)
+
+
 logoutButton.addEventListener('click', function() {
-  window.location.replace('/authorization.html');
-  localStorage.removeItem('user');
-  localStorage.removeItem('userRole');
-  localStorage.removeItem('token');
+  if (!user) {
+    window.location.replace('/authorization.html');
+  } else {
+    window.location.replace('/authorization.html');
+    localStorage.removeItem('user');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('token');
+  }
 })
 
 function displayUserName(user) {

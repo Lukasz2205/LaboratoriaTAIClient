@@ -29,11 +29,6 @@ async function renderBooks() {
               book.price,
               book.pages);
     })
-  } else {
-    localStorage.removeItem('user');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('token');
-    window.location.replace('/authorization.html');
   }
   
   bks.forEach(book => {

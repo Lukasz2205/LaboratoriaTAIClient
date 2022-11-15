@@ -31,15 +31,9 @@ bButton.addEventListener('click', function() {
 });
 
 function createAdminData(user) {
-  if (user.getRoles()[1] === undefined) {
-    if (user.getRoles()[0] === 'Administrator') {
-      data.innerHTML = 'Nie widoczne dla tej roli';
-    } else if (user.getRoles()[0] === 'User') {
-      data.innerHTML = 'Dane dla uzytkownika z rola B';
-    } else {
-      data.innerHTML = 'Nie widoczne dla tej roli';
-    }
-  } else if (user.getRoles()[0] === 'User' || user.getRoles()[1] === 'User' ) {
+  if (user.getRoles().includes('Administrator' && user.getRoles().includes('User'))) {
+    data.innerHTML = 'Dane dla uzytkownika z rola B';
+  } else if (user.getRoles().includes('User')) {
     data.innerHTML = 'Dane dla uzytkownika z rola B';
   } else {
     data.innerHTML = 'Nie widoczne dla tej roli';
