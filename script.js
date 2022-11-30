@@ -1,7 +1,10 @@
 import { Book } from "./book.js";
 import { User } from './user.js'
 let roles = JSON.parse(localStorage.getItem('userRole')).map(x => x.name)
-
+let user = new User(JSON.parse(localStorage.getItem('user')).login,
+                    roles,
+                    localStorage.getItem('token'));
+                    
 async function getBooks() {
   return fetch('http://127.0.0.1:3000/api/books_api', {
     method: "get",
