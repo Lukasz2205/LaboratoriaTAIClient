@@ -1,20 +1,13 @@
-let input = document.getElementById('csv-file');
-let snd_button = document.getElementById('send-csv');
-var file = new FormData()
-file.append('file', input.files[0])
-file.append('user', 'hubot')
+let input = document.getElementById('csv-file').files[0];
+let send_button = document.getElementById('send-csv');
+
+const file = new FormData();
+file.append('books_file', input, 'books_file.csv');
 
 
-snd_button.addEventListener('click', function() {
-  upload(input.file);
-})
-
-const upload = (file) => {
-  fetch('http://127.0.0.1:3000/import_books', { // Your POST endpoint
+send_button.addEventListener('click', function() {
+  fetch('http://127.0.0.1:3000/import_books', {
     method: 'POST',
-    headers: {
-      "Content-Type": "text/csv"
-    },
     body: file 
   }).then(
     response => response.json() 
@@ -22,5 +15,6 @@ const upload = (file) => {
     success => console.log(success)
   ).catch(
     error => console.log(error) 
-  )
-};
+  );
+})
+
